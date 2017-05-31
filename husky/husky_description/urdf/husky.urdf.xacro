@@ -228,6 +228,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <!-- </xacro:macro> -->
 <gazebo>
 
+<!--
  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
     <updateRate>100.0</updateRate>
     <robotNamespace>/</robotNamespace>
@@ -242,9 +243,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <topicName>cmd_vel</topicName>
     <broadcastTF>1</broadcastTF>
   </plugin>
+-->
 <!--
-      <plugin name="controller" filename="libcontroller.so">
-        <robotNamespace></robotNamespace>
+    <plugin name="controller" filename="libcontroller.so">
+      <robotNamespace></robotNamespace>
     <leftFrontJoint>front_left_wheel</leftFrontJoint>
     <rightFrontJoint>front_right_wheel</rightFrontJoint>
     <leftRearJoint>rear_left_wheel</leftRearJoint>
