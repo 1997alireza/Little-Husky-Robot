@@ -1,10 +1,10 @@
-little husky
+Little Husky
 ============
 
 A mini version of husky model
 
-husky
-=====
+##husky
+
 
 Common ROS packages for the Clearpath Husky, useable for both simulation and
 real robot operation.
@@ -18,8 +18,7 @@ For Husky instructions and tutorials, please see [Robots/Husky](http://wiki.ros.
 
 To create a custom Husky description or simulation, please fork [husky_customization](https://github.com/husky/husky_customization).
 
-husky_desktop
-=============
+##husky_desktop
 
 Desktop ROS packages for the Clearpath Husky, which may pull in graphical dependencies.
 
@@ -27,8 +26,7 @@ Desktop ROS packages for the Clearpath Husky, which may pull in graphical depend
 
 For Husky instructions and tutorials, please see http://wiki.ros.org/Robots/Husky
 
-husky_robot
-===========
+##husky_robot
 
 Robot ROS packages for the Clearpath Husky, for operating robot hardware.
 
@@ -37,8 +35,7 @@ Robot ROS packages for the Clearpath Husky, for operating robot hardware.
 
 For Husky instructions and tutorials, please see http://wiki.ros.org/Robots/Husky
 
-husky_simualtor
-==============
+##husky_simualtor
 
 Simulator ROS packages for the Clearpath Husky.
 
