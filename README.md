@@ -1,7 +1,18 @@
 Little Husky
 ============
-
 A mini version of husky model
+============
+This husky is small sized of original one.
+I have changed all of it's dimensions like d to (0.5 * d) and changed meshes to change it's look to small size too.
+
+To ride my boy you should install twist teleop:
+sudo apt-get install ros-kinetic-teleop- twist-keyboard
+
+And launch:
+roslaunch husky_gazebo husky_empty_world.launch
+
+Then run teleop:
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
 ## husky
 
