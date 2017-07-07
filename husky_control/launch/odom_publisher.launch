@@ -1,0 +1,11 @@
+<launch>
+  <arg name="robot_namespace" default="sos1"/>
+  <group ns="$(arg robot_namespace)">
+    <node name="odom_pub" pkg="husky_control" type="odom.py" output="screen">
+      <param name="robotname" type="string" value="$(arg robot_namespace)"/>
+    </node>
+    <node name="tf_pub" pkg="husky_control" type="tf_publisher.py" output="screen">
+      <param name="robotname" type="string" value="$(arg robot_namespace)"/>
+    </node>
+  </group>
+</launch>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="multimaster" default="$(optenv ROBOT_MULTIMASTER false)"/>
+  <arg name="simulation" default="$(optenv ROBOT_SIMULATION false)"/>
+  <arg name="robot_namespace" default="$(optenv ROBOT_NAMESPACE robot)"/>
+
+  <arg name="config_extras"
+       default="$(eval optenv('HUSKY_CONFIG_EXTRAS', find('husky_control') + '/config/empty.yaml'))"/>
+
+  <arg name="laser_enabled" default="$(optenv HUSKY_LMS1XX_ENABLED false)"/>
+  <arg name="kinect_enabled" default="$(optenv HUSKY_UR5_ENABLED false)"/>
+  <arg name="urdf_extras" default="$(optenv HUSKY_URDF_EXTRAS)"/>
+
+  <include file="$(find multimaster_launch)/launch/multimaster_robot.launch">
+    <arg name="gazebo_interface" value="$(find husky_control)/config/gazebo_interface.yaml" />
+    <arg name="public_interface" value="$(find husky_control)/config/public_interface.yaml" />
+    <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+    <arg name="simulation" value="$(arg simulation)"/>
+  </include>
+
+  <!-- Load robot description -->
+
+
+  <!-- Load controller configuration -->
+  <rosparam command="load" file="$(find husky_control)/config/control.yaml" />
+
+  <!-- Spawn controllers -->
+  <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
+        args="husky_joint_publisher husky_velocity_controller --shutdown-timeout 3"/>
+
+  <!-- Start EKF for localization -->
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <param name="odom_frame" value="/$(arg robot_namespace)/odom" />
+    <param name="base_link_frame" value="/$(arg robot_namespace)/base_link" />
+    <param name="world_frame" value="/$(arg robot_namespace)/odom" />
+
+    <rosparam>
+      two_d_mode: true
+
+      frequency: 100
+
+      odom0: husky_velocity_controller/odom
+      odom0_config: [false, false, false,
+                     false, false, false,
+                     true, true, true,
+                     false, false, true,
+                     false, false, false]
+      odom0_differential: false
+      odom0_queue_size: 10
+
+      imu0: imu/data
+      imu0_config: [false, false, false,
+                    true, true, true,
+                    false, false, false,
+                    true, true, true,
+                    false, false, false]
+      imu0_differential: true
+      imu0_queue_size: 10
+      imu0_remove_gravitational_acceleration: true
+    </rosparam>
+  </node> -->
+
+  <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" output="screen"/>
+
+<node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+      <param name="publish_frequency" type="double" value="100.0" />
+      <param name="use_gui" value="false" />
+    </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+     <param name="publish_frequency" type="double" value="100.0" />s
+     <param name="tf_prefix" type="string" value="$(arg robot_namespace)" />
+   </node>
+
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux">
+    <rosparam command="load" file="$(find husky_control)/config/twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="husky_velocity_controller/cmd_vel"/>
+  </node>
+
+  <!-- Override the default control parameters, see config/empty.yaml for default. -->
+  <rosparam command="load" file="$(arg config_extras)" />
+
+</launch>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+
+<arg name="robot_namespace" default="sos1"/>
+
+<include file="$(find husky_gazebo)/launch/myhusky_playpen.launch">
+  <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+</include>
+
+<include file="$(find husky_navigation)/launch/mygmapping_demo.launch" >
+  <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+</include>
+
+<include file="$(find husky_control)/launch/odom_publisher.launch">
+  <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+</include>
+
+
+<arg name="robot_namespace2" default="sos2"/>
+
+
+<include file="$(find husky_navigation)/launch/mygmapping_demo.launch" >
+  <arg name="robot_namespace" value="$(arg robot_namespace2)"/>
+</include>
+
+<include file="$(find husky_control)/launch/odom_publisher.launch">
+  <arg name="robot_namespace" value="$(arg robot_namespace2)"/>
+</include>
+
+
+<include file="$(find husky_viz)/launch/myview_robot.launch" />
+
+</launch>
